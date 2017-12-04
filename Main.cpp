@@ -3,7 +3,7 @@
 #include <sstream>
 #include <stdlib.h>
 #include <cstdlib>
-
+#include <fstream>
 #include "Usuario.h"
 #include "Cliente.h"
 #include "Administrador.h"
@@ -32,23 +32,29 @@ vector <Lavaplatos*> aumento(vector <Lavaplatos*>,int);
 vector <Mesero*> agregar_platillo(vector <Mesero*>);
 vector <Mesero*> dar_platillo(vector <Mesero*>,int);
 vector <Mesero*> dar_platillos(vector <Mesero*>,int);
+void escribir_chef(vector<Chef*>);
+void escribir_lavaplatos(vector<Lavaplatos*>);
+void escribir_mesero(vector<Mesero*>);
+void escribir_cliente(vector<Cliente*>);
+void escribir_administrador(Administrador*);
 int main(){
     bool seguir=true;
     int opcion,llenados=0;
     vector<Chef*> lista_chef;
     vector<Lavaplatos*>lista_lavaplatos;
     vector<Mesero*>lista_meseros;
-    vector<Cliente*>lista_cliente;
+    vector<Cliente*>lista_cliente;//
+    Administrador *admin;
     while(seguir){
       cout<<"Ingrese opcion menu"<<endl<<
       "1-Ingresar al Administrador"<<endl<<
       "2-Agregar a clientes"<<endl<<
       "3-Ingresar a login del personal"<<endl<<
-      "4-Salir"<<endl;
+      "4-Guardar todo"<<endl<<
+      "5-Salir"<<endl;
       cin>>opcion;
       switch(opcion){
         case 1:{//Administrador
-          Administrador *admin;
           int op;
           cout<<"Ingrese opcion"<<endl<<"1-llenar datos"<<endl<<"2-Ingresar a login"<<endl;
           cin>>op;
@@ -151,6 +157,7 @@ int main(){
                       }break;
                       case 4:{//salir
                         break;
+                        int p;
                       }break;
                     }
                   }break;
@@ -224,13 +231,13 @@ int main(){
             }break;
             case 2:{//lavaplatos
               int pos;
+              string user,contra;
               cout<<"Ingrese pos"<<endl;
               for(int i=0;i<lista_lavaplatos.size();i++){
                   cout<<i<<"-"<<lista_lavaplatos.at(i)->getNombre()<<endl;
               }
               cin>>pos;
               string u=lista_lavaplatos.at(pos)->getUsername(),c=lista_lavaplatos.at(pos)->getPassword();
-              string user,contra;
               cout<<"Ingrese usuario"<<endl;
               cin>>user;
               cout<<"Ingrese contraseña"<<endl;
@@ -294,6 +301,13 @@ int main(){
 
         }break;//fin de personal
         case 4:{//salir
+          escribir_cliente(lista_cliente);
+          escribir_chef(lista_chef);
+          escribir_mesero(lista_meseros);
+          escribir_lavaplatos(lista_lavaplatos);
+          escribir_administrador(admin);
+        }break;
+        case 5:{
           break;
         }break;
       }//fin del switch
@@ -662,4 +676,129 @@ vector <Mesero*> dar_platillo(vector <Mesero*> lista,int pos1){
 vector <Mesero*> dar_platillos(vector <Mesero*> lista,int pos1){
   lista.at(pos1)->getPlatillos().clear();
   return lista;
+}
+
+void escribir_cliente(vector<Cliente*> lista){//escribir texto
+        ofstream archivo;
+        archivo.open("cliente.txt",ios::out);//Abriendo o creando el archivo
+        if(archivo.fail()){
+                cout<<"Hubo un error";
+        }
+        for(int i=0;i<lista.size();i++){
+            archivo<<lista.at(i)->getDireccion();
+            archivo<<",";
+            archivo<<lista.at(i)->getRating();
+            archivo<<",";
+            archivo<<lista.at(i)->getUsername();
+            archivo<<",";
+            archivo<<lista.at(i)->getPassword();
+            archivo<<",";
+            archivo<<lista.at(i)->getNombre();
+            archivo<<",";
+            archivo<<lista.at(i)->getEdad();
+            archivo<<",";
+            archivo<<lista.at(i)->getId();
+            archivo<<",";
+            archivo<<lista.at(i)->getTelefono();
+            archivo<<";";
+        }
+        archivo.close();
+}
+void escribir_chef(vector<Chef*> lista){//escribir texto
+        ofstream archivo;
+        archivo.open("cliente.txt",ios::out);//Abriendo o creando el archivo
+        if(archivo.fail()){
+                cout<<"Hubo un error";
+        }
+        for(int i=0;i<lista.size();i++){
+            archivo<<lista.at(i)->getPlatillo();
+            archivo<<",";
+            archivo<<lista.at(i)->getFecha();
+            archivo<<",";
+            archivo<<lista.at(i)->getSueldo();
+            archivo<<",";
+            archivo<<lista.at(i)->getUsername();
+            archivo<<",";
+            archivo<<lista.at(i)->getPassword();
+            archivo<<",";
+            archivo<<lista.at(i)->getNombre();
+            archivo<<",";
+            archivo<<lista.at(i)->getEdad();
+            archivo<<",";
+            archivo<<lista.at(i)->getId();
+            archivo<<",";
+            archivo<<lista.at(i)->getTelefono();
+            archivo<<";";
+        }
+        archivo.close();
+}
+void escribir_mesero(vector<Mesero*> lista){//escribir texto
+        ofstream archivo;
+        archivo.open("cliente.txt",ios::out);//Abriendo o creando el archivo
+        if(archivo.fail()){
+                cout<<"Hubo un error";
+        }
+        for(int i=0;i<lista.size();i++){
+            archivo<<lista.at(i)->getFecha();
+            archivo<<",";
+            archivo<<lista.at(i)->getSueldo();
+            archivo<<",";
+            archivo<<lista.at(i)->getUsername();
+            archivo<<",";
+            archivo<<lista.at(i)->getPassword();
+            archivo<<",";
+            archivo<<lista.at(i)->getNombre();
+            archivo<<",";
+            archivo<<lista.at(i)->getEdad();
+            archivo<<",";
+            archivo<<lista.at(i)->getId();
+            archivo<<",";
+            archivo<<lista.at(i)->getTelefono();
+            archivo<<";";
+        }
+        archivo.close();
+}
+void escribir_lavaplatos(vector<Lavaplatos*> lista){//escribir texto
+        ofstream archivo;
+        archivo.open("cliente.txt",ios::out);//Abriendo o creando el archivo
+        if(archivo.fail()){
+                cout<<"Hubo un error";
+        }
+        for(int i=0;i<lista.size();i++){
+            archivo<<lista.at(i)->getMotivacion();
+            archivo<<",";
+            archivo<<lista.at(i)->getFecha();
+            archivo<<",";
+            archivo<<lista.at(i)->getSueldo();
+            archivo<<",";
+            archivo<<lista.at(i)->getUsername();
+            archivo<<",";
+            archivo<<lista.at(i)->getPassword();
+            archivo<<",";
+            archivo<<lista.at(i)->getNombre();
+            archivo<<",";
+            archivo<<lista.at(i)->getEdad();
+            archivo<<",";
+            archivo<<lista.at(i)->getId();
+            archivo<<",";
+            archivo<<lista.at(i)->getTelefono();
+            archivo<<";";
+        }
+        archivo.close();
+}
+void escribir_administrador(Administrador *admin){//escribir texto
+        ofstream archivo;
+        archivo.open("cliente.txt",ios::out);//Abriendo o creando el archivo
+        if(archivo.fail()){
+                cout<<"Hubo un error";
+        }
+        archivo<<admin->getContratados();
+        archivo<<admin->getDespedidos();
+        archivo<<admin->getUsername();
+        archivo<<admin->getPassword();
+        archivo<<admin->getNombre();
+        archivo<<admin->getEdad();
+        archivo<<admin->getId();
+        archivo<<admin->getTelefono();
+        archivo.close();
 }

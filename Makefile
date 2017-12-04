@@ -1,3 +1,3 @@
-frac:   Main.cpp Usuario.cpp Cliente.cpp Administrador.cpp Personal.cpp Chef.cpp Lavaplatos.cpp Mesero.cpp
-        g++ -std=c++11 Main.cpp Usuario.cpp Cliente.cpp Administrador.cpp Personal.cpp Chef.cpp
-				Lavaplatos.cpp Mesero.cpp
+#esta regla compila el programa principal
+main:  Main.cpp Usuario.cpp Cliente.cpp Administrador.cpp Personal.cpp Chef.cpp Lavaplatos.cpp Mesero.cpp
+	g++ -o main Main.cpp Usuario.cpp Cliente.cpp Administrador.cpp Personal.cpp Chef.cpp Lavaplatos.cpp Mesero.cpp
